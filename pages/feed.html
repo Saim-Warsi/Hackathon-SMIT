@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ta'alluk - Feed</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="../images/favicon.png" />
+
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400"
+    />
+  </head>
+  <link rel="stylesheet" href="../style.css" />
+
+  <body class="min-h-screen transition-colors duration-300">
+    <!-- Header -->
+    <div
+      class="sticky top-0 z-40 backdrop-blur-md bg-white/80 dark:bg-gray-800 shadow-md"
+    >
+      <div
+        class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center"
+      >
+        <!-- <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">Social Connect</h1> -->
+        <div class="flex gap-x-2 items-center">
+          <img src="../images/favicon.png" class="w-10" alt="" srcset="" />
+          <h1 class="dark:text-gray-300 text-md md:text-lg">Ta'alluk</h1>
+        </div>
+        <div class="flex items-center ">
+          <button
+            onclick="toggleTheme()"
+            class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition"
+          >
+            <span
+              id="themeIcon"
+              class="material-symbols-outlined dark:text-gray-300 flex items-center cursor-pointer"
+            >
+              dark_mode
+            </span>
+          </button>
+          <span class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700" onclick="window.location.href='profile.html'">
+            <span
+              class="material-symbols-outlined dark:text-gray-300 flex items-center cursor-pointer"
+            >
+              person
+            </span>
+          </span>
+         
+        
+        </div>
+      </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto p-4 space-y-4">
+     
+<div
+  class="bg-white dark:bg-gray-800 p-4 sm:p-6 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700 w-full mx-auto"
+>
+  <h2 class="text-lg font-semibold mb-3 sm:mb-4 text-gray-800 dark:text-white">
+    Create Post
+  </h2>
+
+  <textarea
+    id="postText"
+    placeholder="What's on your mind?"
+    class="w-full px-3 sm:px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition resize-none"
+    rows="3"
+  ></textarea>
+
+  <div class="mt-4 space-y-3">
+    <div class="flex flex-col sm:flex-row gap-2 w-full">
+
+      <!-- Media Button -->
+      <div class="flex w-full sm:w-auto">
+        <input
+          type="file"
+          id="imageUpload"
+          accept="image/*"
+          class="hidden"
+          onchange="handleImageUpload(event)"
+        />
+        <button
+          onclick="document.getElementById('imageUpload').click()"
+          class="flex items-center justify-center w-full sm:w-auto gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition text-gray-700 dark:text-gray-300"
+        >
+          Media
+          <span class="material-symbols-outlined">
+image_arrow_up
+</span>
+        </button>
+      </div>
+
+      <!-- Image URL Input -->
+      <input
+        type="text"
+        id="imageUrlInput"
+        placeholder="Paste image URL"
+        class="flex-1 px-3 sm:px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white outline-none w-full"
+      />
+
+      <!-- Add Button -->
+      <button
+        onclick="handleImageUrl()"
+        class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition text-gray-700 dark:text-gray-300 w-full sm:w-auto"
+      >
+        Add
+      </button>
+
+    </div>
+
+    <!-- File name -->
+    <span id="imageName" class="text-sm text-gray-500 break-all"></span>
+
+    <!-- Preview -->
+    <img
+      id="imagePreview"
+      class="w-full rounded-lg hidden shadow-md"
+      style="max-height: 300px; object-fit: cover"
+    />
+
+    <!-- Post Button -->
+    <button
+      onclick="createPost()"
+      class="w-full bg-yellow-400 text-black py-3 rounded-lg font-semibold hover:shadow-lg transform  active:scale-95 transition"
+    >
+      Post
+    </button>
+  </div>
+</div>
+
+      <!-- Search & Sort -->
+      <div
+        class="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-lg border border-gray-200 dark:border-gray-700"
+      >
+        <!-- <input
+          type="text"
+          id="searchInput"
+          onkeyup="searchPosts()"
+          placeholder="Search posts..."
+          class="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white mb-3 outline-none focus:ring-2 focus:ring-blue-500"
+        /> -->
+        <div class="relative w-full mb-3">
+          <span
+            class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-300"
+          >
+            search
+          </span>
+
+          <input
+            type="text"
+            id="searchInput"
+            onkeyup="searchPosts()"
+            placeholder="Search posts..."
+            class="w-full pl-10 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <div class="flex flex-wrap gap-2">
+          <button
+            onclick="sortPosts('latest')"
+            class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-blue-500 hover:text-white transition text-gray-700 dark:text-gray-300"
+          >
+            Latest First
+          </button>
+          <button
+            onclick="sortPosts('oldest')"
+            class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-blue-500 hover:text-white transition text-gray-700 dark:text-gray-300"
+          >
+            Oldest First
+          </button>
+          <button
+            onclick="sortPosts('likes')"
+            class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-blue-500 hover:text-white transition text-gray-700 dark:text-gray-300"
+          >
+            Most Liked
+          </button>
+        </div>
+      </div>
+
+      <!-- Posts Feed -->
+      <div id="postsContainer" class="space-y-4"></div>
+    </div>
+
+    <!-- Edit Modal -->
+    <div
+      id="editModal"
+      class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4"
+    >
+      <div
+        class="bg-white dark:bg-gray-800 rounded-2xl p-6 max-w-2xl w-full shadow-2xl"
+      >
+        <h2 class="text-xl font-bold mb-4 text-gray-800 dark:text-white">
+          Edit Post
+        </h2>
+        <textarea
+          id="editPostText"
+          class="w-full px-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white outline-none resize-none"
+          rows="4"
+        ></textarea>
+        <div class="flex gap-3 mt-4">
+          <button
+            onclick="saveEdit()"
+            class="flex-1 bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg transition"
+          >
+            Save Changes
+          </button>
+          <button
+            onclick="closeEditModal()"
+            class="flex-1 bg-gray-500 hover:bg-gray-600 text-white py-2 rounded-lg transition"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reaction Picker Modal -->
+    <div
+      id="reactionModal"
+      class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+    >
+      <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-2xl">
+        <h3 class="text-lg font-bold mb-4 text-gray-800 dark:text-white">
+          Choose Reaction
+        </h3>
+        <div class="flex gap-3 text-3xl">
+          <button
+            onclick="addReaction('favorite')"
+            class="hover:scale-125 transition transform"
+          >
+            <span class="material-symbols-outlined " >
+favorite
+</span>
+          </button>
+          <button
+            onclick="addReaction('sentiment_excited')"
+            class="hover:scale-125 transition transform"
+          >
+            <span class="material-symbols-outlined">
+sentiment_excited
+</span>
+          </button>
+          <button
+            onclick="addReaction('thumb_up')"
+            class="hover:scale-125 transition transform"
+          >
+            <span class="material-symbols-outlined ">
+thumb_up
+</span>
+          </button>
+          <button
+            onclick="addReaction('sentiment_dissatisfied')"
+            class="hover:scale-125 transition transform"
+          >
+            <span class="material-symbols-outlined ">
+sentiment_dissatisfied
+</span>
+          </button>
+          <button
+            onclick="addReaction('local_fire_department')"
+            class="hover:scale-125 transition transform "
+          >
+            <span class="material-symbols-outlined ">
+local_fire_department
+</span>
+          </button>
+          <button
+            onclick="addReaction('sentiment_extremely_dissatisfied')"
+            class="hover:scale-125 transition transform"
+          >
+           <span class="material-symbols-outlined ">
+sentiment_extremely_dissatisfied
+</span>
+          </button>
+        </div>
+        <button
+          onclick="closeReactionModal()"
+          class="mt-4 w-full bg-gray-500 hover:bg-gray-600 text-white py-2 rounded-lg transition"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+
+    <!-- footer -->
+    <footer class="bg-white dark:bg-gray-900 mt-10">
+      <div class="mx-auto max-w-7xl px-4 pt-16 pb-8 sm:px-6 lg:px-8">
+        <!-- Email Subscribe Section -->
+        <div class="mx-auto max-w-md flex items-center justify-center gap-x-3">
+          <img src="../images/favicon.png" class="w-12" alt="" />
+          <h1 class="text-2xl font-semibold dark:text-gray-200">Ta'alluk</h1>
+        </div>
+
+        <!-- Text + Social Icons Section -->
+        <div class="mx-auto max-w-2xl mt-16 text-center">
+          <p class="text-gray-500 lg:text-lg dark:text-gray-400">
+            Ta’alluk is a modern social platform designed to connect people
+            through meaningful interactions. It brings communities together.
+          </p>
+
+          <div class="mt-6 flex justify-center gap-4">
+            <!-- Facebook -->
+            <a
+              class="text-gray-700 transition hover:text-gray-700/75 dark:text-white dark:hover:text-white/75"
+              href="https://instagram.com"
+              target="_blank"
+            >
+             <img src="../images/instagram.png" class="w-6 filter invert" alt="">
+            </a>
+
+            <!-- Instagram -->
+            <a
+              class="text-gray-700 transition hover:text-gray-700/75 dark:text-white dark:hover:text-white/75"
+              href="https://facebook.com"
+              target="_blank"
+            >
+              <img src="../images/facebook.png" class="w-6 filter invert" alt="">
+            </a>
+
+            <!-- Twitter -->
+            <a
+              class="text-gray-700 transition hover:text-gray-700/75 dark:text-white dark:hover:text-white/75"
+              href="https://x.com"
+              target="_blank"
+            >
+             <img src="../images/twitter.png" class="w-6 filter invert" alt="">
+            </a>
+          </div>
+        </div>
+
+        <!-- Bottom Text -->
+        <div class="mt-16 border-t border-gray-100 pt-8 dark:border-gray-800">
+          <p
+            class="text-center text-xs/relaxed text-gray-500 dark:text-gray-400"
+          >
+            © Ta'alluk 2022. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="../javascript/feed.js"></script>
+   
+  </body>
+</html>
